@@ -1,6 +1,6 @@
 # grunt-akp-devnotes
 
-> grunt plugin to 'Add Kode Partials' by picking js, html, readme and put them together tocreate devnotes
+> grunt plugin to 'Add Kode Partials' by picking js, html, readme and put them together to create devnotes
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
