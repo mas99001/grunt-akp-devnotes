@@ -1,7 +1,7 @@
 {
   "name": "grunt-akp-devnotes",
   "description": "picks js, html, readme and put them together tocreate devnotes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/mas99001/grunt-akp-devnotes",
   "author": {
     "name": "Aditya Kumar",
