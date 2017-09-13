@@ -51,6 +51,7 @@ grunt.initConfig({
     "node": ">=0.8.0"
   }
 }
+```
 
 ### Options
 
