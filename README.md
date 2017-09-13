@@ -14,6 +14,7 @@ npm install grunt-akp-devnotes --save-dev
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
+grunt.loadNpmTasks('grunt-template');
 grunt.loadNpmTasks('grunt-akp-devnotes');
 ```
 
@@ -34,6 +35,22 @@ grunt.initConfig({
   },
 });
 ```
+### Package.json
+
+```js
+{
+  "name": "my-akp-devnotes",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-akp-devnotes": "^0.1.1",
+    "grunt-template": "^0.2.3"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}
 
 ### Options
 
@@ -55,31 +72,37 @@ A string value that is used to do something else with whatever else.
 In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
 
 ```js
-grunt.initConfig({
-  akp_devnotes: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
+    grunt.initConfig({
+      akp_devnotes: {
+          options: {
+            src: 'src/',
+            dest: 'dist/',
+            excludeComponents: ['devNotes', 'message', 'position', 'transition', 'utilities'],
+            partialsTemplate:'app/devnotes-template.html'
+          },
+          files: {
+            'dest/default_options': ['src/srcfile', 'src/123'],
+          }
+        },
+      });
 ```
 
 #### Custom Options
 In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
 
 ```js
-grunt.initConfig({
-  akp_devnotes: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
+    grunt.initConfig({
+      akp_devnotes: {
+          options: {
+            dest: 'destination/paterns-par',
+            excludeComponents: ['devNotes', 'message', 'position', 'transition', 'utilities'],
+            partialsTemplate:'app/devnotes-template.html'
+          },
+          files: {
+            'dest/default_options': ['src/srcfile', 'src/123'],
+          }
+        },
+      });
 ```
 
 ## Contributing
