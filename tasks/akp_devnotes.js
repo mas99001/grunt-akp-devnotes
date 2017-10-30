@@ -7,6 +7,7 @@
 */
 
 'use strict';
+var commands = require('../lib/mappings');
 module.exports = function(grunt) {
     // Please see the Grunt documentation for more information regarding task
     // creation: http://gruntjs.com/creating-tasks
@@ -16,7 +17,9 @@ module.exports = function(grunt) {
             src: 'src/',
             dest: 'dist/',
             excludeComponents: ['devNotes', 'message', 'position', 'transition', 'utilities'],
-            partialsTemplate:'devnotes-template.html'
+            partialsTemplate:'devnotes-template.html',
+            one2one: true,
+            one2manysrc: "ddh-hub/2017.09/patterns-demo-template/angularjs/"
         });
 
         console.log('\x1b[45m%s\x1b[0m', 'src:= ' + options.src);   
@@ -69,7 +72,7 @@ module.exports = function(grunt) {
                 'js': module.docs.js
             };
             name = name.replace(/([A-Z])/g, '-$1').toLowerCase();
-            var destsrc = options.dest + '/' + 'patterns-' + name + '.html';
+            var destsrc = options.dest + 'patterns-' + name + '.html';
             var templateFiles = {};
 
             templateFiles[destsrc] = options.partialsTemplate;
@@ -93,10 +96,13 @@ module.exports = function(grunt) {
                     processModule(dir.split('/')[1]);
                 }
             });
+            if(!options.one2one){
+                commands.many2one(grunt, options);
+                commands.one2many(grunt, options);
+            }
             grunt.task.run(['template']);
             console.log('\x1b[34m%s\x1b[0m', "Ending createPartials()");
         }
-
         createPartials();
     });
 };
