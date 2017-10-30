@@ -24,6 +24,7 @@ module.exports = function(grunt) {
 
         console.log('\x1b[45m%s\x1b[0m', 'src:= ' + options.src);   
         console.log('\x1b[45m%s\x1b[0m', 'dest:= ' + options.dest);
+        console.log('\x1b[45m%s\x1b[0m', 'dest:= ' + options.one2manysrc);
         console.log('\x1b[45m%s\x1b[0m', 'excludeComponents:= ' + options.excludeComponents);   
         console.log('\x1b[45m%s\x1b[0m', 'partialsTemplate:= ' + options.partialsTemplate);   
         var lastChar = options.dest.substr(-1);
@@ -34,9 +35,14 @@ module.exports = function(grunt) {
         if (lastChar != '/') {
             options.src  = options.src + '/';
         }
+        lastChar = options.one2manysrc.substr(-1);
+        if (lastChar != '/') {
+            options.one2manysrc  = options.one2manysrc + '/';
+        }
         console.log('\x1b[45m%s\x1b[0m', 'src:= ' + options.src);
         console.log('\x1b[45m%s\x1b[0m', 'dest:= ' + options.dest);
-                
+        console.log('\x1b[45m%s\x1b[0m', 'dest:= ' + options.one2manysrc);
+        
         var isModuleProcessed = {};
         
         function _contains(array, searchString) {
