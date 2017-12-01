@@ -79,7 +79,8 @@ In this example, the default options are used to do something with whatever. So 
             src: 'src/',
             dest: 'dist/',
             excludeComponents: ['devNotes', 'message', 'position', 'transition', 'utilities'],
-            partialsTemplate:'app/devnotes-template.html'
+            partialsTemplate:'app/devnotes-template.html',
+            catoStatusJson: 'app/catoStatus.json',
           },
           files: {
             'dest/default_options': ['src/srcfile', 'src/123'],
@@ -97,7 +98,8 @@ In this example, custom options are used to do something else with whatever else
           options: {
             dest: 'destination/paterns-par',
             excludeComponents: ['devNotes', 'message', 'position', 'transition', 'utilities'],
-            partialsTemplate:'app/devnotes-template.html'
+            partialsTemplate:'app/devnotes-template.html',
+            catoStatusJson: 'app/catoStatus.json',
           },
           files: {
             'dest/default_options': ['src/srcfile', 'src/123'],

@@ -8,6 +8,7 @@
 
 'use strict';
 var commands = require('../lib/mappings');
+var fs = require('fs');
 module.exports = function(grunt) {
     // Please see the Grunt documentation for more information regarding task
     // creation: http://gruntjs.com/creating-tasks
@@ -19,7 +20,9 @@ module.exports = function(grunt) {
             excludeComponents: ['devNotes', 'message', 'position', 'transition', 'utilities'],
             partialsTemplate:'devnotes-template.html',
             one2one: true,
-            one2manysrc: "ddh-hub/2017.09/patterns-demo-template/angularjs/"
+            one2manysrc: "ddh-hub/2017.09/patterns-demo-template/angularjs/",
+	    catoStatusJson: 'app/catoStatus.json'
+
         });
 
         console.log('\x1b[45m%s\x1b[0m', 'src:= ' + options.src);   
@@ -48,7 +51,27 @@ module.exports = function(grunt) {
         function _contains(array, searchString) {
             return (array.indexOf(searchString) > -1);
         }
-
+		
+		function getCatoStatus(name) {
+			var catoJson = JSON.parse(fs.readFileSync(options.catoStatusJson));
+			for (var i = 0; i < catoJson.menuItems.length; i++) {
+            if ( catoJson.menuItems[i].name == name) {
+				var catoStatus = catoJson.menuItems[i].catoStatus;
+				var designReview = catoJson.menuItems[i].designReviewStatus;
+			}
+		}
+		return catoStatus;
+		}
+		function getdesignReviewStatus(name) {
+			var catoJson = JSON.parse(fs.readFileSync(options.catoStatusJson));
+			for (var i = 0; i < catoJson.menuItems.length; i++) {
+            if ( catoJson.menuItems[i].name == name) {
+				var designReview = catoJson.menuItems[i].designReviewStatus;
+			}
+		}
+		return designReview;
+		}
+		
         function processModule(name) {
             if (isModuleProcessed[name]) { 
               return;
@@ -66,7 +89,9 @@ module.exports = function(grunt) {
                     devn: grunt.file.expand(options.src + name + "/docs/readme.md")
                     .map(grunt.file.read).join("\n"),
                     history: grunt.file.expand(options.src + name + "/docs/history.md")
-                    .map(grunt.file.read).join("\n")							
+                    .map(grunt.file.read).join("\n"),
+					catoStatus: getCatoStatus(name),
+					designReviewStatus: getdesignReviewStatus(name)
                 } 
             };
             grunt.config('modules', grunt.config('modules').concat(module));
@@ -75,7 +100,9 @@ module.exports = function(grunt) {
                 'html': module.docs.html,
                 'devn': module.docs.devn,
                 'history':module.docs.history,
-                'js': module.docs.js
+                'js': module.docs.js,
+				'catoStatus': module.docs.catoStatus,
+				'designReviewStatus': module.docs.designReviewStatus
             };
             name = name.replace(/([A-Z])/g, '-$1').toLowerCase();
             var destsrc = options.dest + 'patterns-' + name + '.html';
